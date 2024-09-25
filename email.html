@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .email-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"],
+        input[type="email"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-form">
+        <h2>Submit Your Name and Email to View Portfolio</h2>
+        <form id="emailForm" action="https://formspree.io/f/xjkbqqvl" method="POST">
+            <input type="text" name="name" id="name" placeholder="Enter your name" required>
+            <input type="email" name="email" id="email" placeholder="Enter your email" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("emailForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Use FormData to capture the form fields
+            const formData = new FormData(this);
+
+            // Send data to Formspree
+            fetch("https://formspree.io/f/xjkbqqvl", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json' // Optional: to handle JSON responses
+                }
+            }).then(function(response) {
+                if (response.ok) {
+                    // Redirect to portfolio after successful submission
+                    window.location.href = "https://sreejareddy850.github.io/Portfolio/"; // Your portfolio URL
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            }).catch(function(error) {
+                alert("There was an error submitting the form: " + error.message);
+            });
+        });
+    </script>
+</body>
+</html>
